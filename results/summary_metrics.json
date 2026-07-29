@@ -1,0 +1,72 @@
+{
+  "config": {
+    "episodes_per_profile": 100,
+    "dt": 0.02,
+    "guidance": "proportional_navigation"
+  },
+  "profiles": {
+    "non_maneuvering": {
+      "n_episodes": 100,
+      "outcomes": {
+        "running": 0,
+        "intercepted": 95,
+        "timeout": 0,
+        "out_of_bounds": 5
+      },
+      "interception_rate": 0.95,
+      "mean_time_to_intercept": 3.085894736842098,
+      "mean_closest_approach": 0.4696565519276533,
+      "mean_time_to_intercept_ratio_vs_straight_line": 2.641676461265047,
+      "meets_time_ratio_minimum_3x": true,
+      "meets_time_ratio_target_1_5x": false,
+      "meets_minimum_threshold": true,
+      "meets_target_threshold": true,
+      "thresholds": {
+        "min_rate": 0.85,
+        "target_rate": 0.95
+      }
+    },
+    "maneuvering": {
+      "n_episodes": 100,
+      "outcomes": {
+        "running": 0,
+        "intercepted": 42,
+        "timeout": 26,
+        "out_of_bounds": 32
+      },
+      "interception_rate": 0.42,
+      "mean_time_to_intercept": 14.919999999999934,
+      "mean_closest_approach": 1.088860019777756,
+      "mean_time_to_intercept_ratio_vs_straight_line": 12.766321840122238,
+      "meets_time_ratio_minimum_3x": false,
+      "meets_time_ratio_target_1_5x": false,
+      "meets_minimum_threshold": false,
+      "meets_target_threshold": false,
+      "thresholds": {
+        "min_rate": 0.5,
+        "target_rate": 0.75
+      }
+    },
+    "behavior_switching": {
+      "n_episodes": 100,
+      "outcomes": {
+        "running": 0,
+        "intercepted": 97,
+        "timeout": 0,
+        "out_of_bounds": 3
+      },
+      "interception_rate": 0.97,
+      "mean_time_to_intercept": 3.1929896907216397,
+      "mean_closest_approach": 0.46363082376033987,
+      "mean_time_to_intercept_ratio_vs_straight_line": 2.5537837721222068,
+      "meets_time_ratio_minimum_3x": true,
+      "meets_time_ratio_target_1_5x": false,
+      "meets_minimum_threshold": true,
+      "meets_target_threshold": true,
+      "thresholds": {
+        "min_rate": 0.3,
+        "target_rate": 0.55
+      }
+    }
+  }
+}

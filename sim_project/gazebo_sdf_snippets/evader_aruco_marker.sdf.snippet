@@ -1,0 +1,43 @@
+<!--
+evader_aruco_marker.sdf.snippet
+--------------------------------------------------------------
+Add this INSIDE the evader's model.sdf (a different model directory /
+different PX4_SIM_MODEL from the pursuer -- copy x500 -> x500_marker/,
+add this, and launch the evader instance with PX4_SIM_MODEL=gz_x500_marker).
+
+Mounts a flat, upward/forward-facing plate carrying the ArUco marker
+texture on top of the evader so the pursuer's camera can see it from
+typical chase angles. Generate the texture PNG first with
+generate_aruco_marker.py (marker ID 0, matching MARKER_ID in the
+perception node), then drop it at:
+  <model_dir>/materials/textures/aruco_marker_0.png
+--------------------------------------------------------------
+-->
+
+<link name="aruco_marker_link">
+  <pose relative_to="base_link">0 0 0.08 0 0 0</pose>
+  <inertial>
+    <mass>0.001</mass>
+    <inertia><ixx>1e-7</ixx><iyy>1e-7</iyy><izz>1e-7</izz>
+              <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+  </inertial>
+  <visual name="aruco_marker_visual">
+    <geometry>
+      <box><size>0.20 0.20 0.005</size></box>
+    </geometry>
+    <material>
+      <pbr>
+        <metal>
+          <albedo_map>model://x500_marker/materials/textures/aruco_marker_0.png</albedo_map>
+          <roughness>0.9</roughness>
+          <metalness>0.0</metalness>
+        </metal>
+      </pbr>
+    </material>
+  </visual>
+</link>
+
+<joint name="aruco_marker_joint" type="fixed">
+  <parent>base_link</parent>
+  <child>aruco_marker_link</child>
+</joint>

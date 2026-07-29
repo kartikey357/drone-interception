@@ -1,0 +1,49 @@
+<!--
+pursuer_depth_camera.sdf.snippet
+--------------------------------------------------------------
+Add this INSIDE the pursuer's model.sdf, as a sibling of the existing
+<link name="base_link">. Typical PX4-Autopilot gz model path:
+  PX4-Autopilot/Tools/simulation/gz/models/x500/model.sdf
+
+Since both instances currently load the SAME x500 model, either:
+  (a) duplicate the model into a new x500_camera/ directory and set
+      PX4_SIM_MODEL=gz_x500_camera for the pursuer instance only, or
+  (b) add this to the shared model and accept both vehicles carry a
+      (unused, harmless) camera -- simplest for a class project.
+Option (a) is cleaner; option (b) is faster to get running today.
+--------------------------------------------------------------
+-->
+
+<link name="camera_link">
+  <pose relative_to="base_link">0.12 0 0 0 0 0</pose>
+  <inertial>
+    <mass>0.01</mass>
+    <inertia><ixx>1e-6</ixx><iyy>1e-6</iyy><izz>1e-6</izz>
+              <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+  </inertial>
+
+  <sensor name="depth_camera" type="rgbd_camera">
+    <always_on>true</always_on>
+    <update_rate>20</update_rate>
+    <!-- topics kept explicit and predictable -- these are what
+         aruco_evader_perception.py and the ros_gz_bridge lines expect -->
+    <topic>drone1/camera</topic>
+    <camera>
+      <horizontal_fov>1.55</horizontal_fov>   <!-- ~89 degrees; widen this if initial acquisition is unreliable -->
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.1</near>
+        <far>50</far>
+      </clip>
+    </camera>
+  </sensor>
+</link>
+
+<joint name="camera_joint" type="fixed">
+  <parent>base_link</parent>
+  <child>camera_link</child>
+</joint>
